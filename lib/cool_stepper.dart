@@ -125,7 +125,7 @@ class _CoolStepperState extends State<CoolStepper> {
 
   Widget jumpToStepsListContainer(BuildContext dialogContext) {
     return Container(
-      height: MediaQuery.of(context).size.height - 200,
+      height: MediaQuery.of(context).size.height - 220,
       width: MediaQuery.of(context).size.width - 50,
       child: ListView.builder(
         shrinkWrap: true,
@@ -140,8 +140,23 @@ class _CoolStepperState extends State<CoolStepper> {
               Navigator.pop(dialogContext);
             },
             child: ListTile(
-              leading: CircleAvatar(child: Text("${index+1}")),
-              title: Text(widget.steps[index].title),
+              leading: Padding(
+                padding: EdgeInsets.symmetric(vertical: 5.0), 
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: Container(
+                    height: 40.0,
+                    width: 40.0,
+                    color: Colors.blue,
+                    child: Center(
+                      child: Text("${index+1}", style: TextStyle(color: Colors.white, fontSize: 16.0),)
+                    ),
+                  ),
+                ),
+              ),
+              title: Text(widget.steps[index].title, style: TextStyle(fontSize: 18.0),),
+              dense: true,
+              // visualDensity: VisualDensity(vertical: -3),
               // subtitle: Text(widget.steps[index].subtitle),
             )
           );
@@ -180,12 +195,19 @@ class _CoolStepperState extends State<CoolStepper> {
           );
         }
       },
-      child: Text(
-        "${widget.config.stepText ?? 'STEP'} ${currentStep + 1} ${widget.config.ofText ?? 'OF'} ${widget.steps.length}",
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.blue
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "${widget.config.stepText ?? 'STEP'} ${currentStep + 1} ${widget.config.ofText ?? 'OF'} ${widget.steps.length}",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.blue
+            ),
+          ),
+
+          const Icon(Icons.keyboard_arrow_down_rounded),
+        ],
       ),
     );
 
